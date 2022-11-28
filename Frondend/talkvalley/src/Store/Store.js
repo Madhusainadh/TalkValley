@@ -4,10 +4,7 @@ import { adsreducer } from "./ads.reducer";
 
 const rootReducer = combineReducers({
     ads: adsreducer
-  
   });
-  
-  
    const store = legacy_createStore(rootReducer, applyMiddleware(thunk));
    export default store
   

@@ -34,7 +34,7 @@ const Navbar = () => {
 
   let dispatch = useDispatch();
   useEffect(() => {
-    let time = setTimeout( () => {
+    let time = setTimeout(() => {
       dispatch(sendads(text));
     }, 2000);
     return () => clearTimeout(time);
