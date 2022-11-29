@@ -23,9 +23,6 @@ app.post("/company",async(req,res)=>{
 })
 app.get('/',async(req,res)=>{
     const search = req.query.search || "";
-
-//     let data = await ads.find({})
-//  res.send(data)
 try{
     let data = await ads.find({
        "$or":[
@@ -35,7 +32,6 @@ try{
         {CTA: { $regex: search, $options : "i" }}
        ]
       });
-    //  let a = await ads.find({name: { $regex: search, $options : "i" }})
     let c = await company.find({name: { $regex: search, $options : "i" }})
       res.send([...data,...c])
 }catch(err){
@@ -45,7 +41,4 @@ try{
 })
 
 
-
 module.exports = app;
-
-//rearch in mongodb?
