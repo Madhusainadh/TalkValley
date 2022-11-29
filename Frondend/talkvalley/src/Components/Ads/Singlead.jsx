@@ -5,7 +5,7 @@ const Singlead = (props) => {
   let { data } = props;
   //    console.log(data)
   return (
-    <div>
+    <div key={data._id}>
       <Box boxShadow={"base"} key={data._id}>
         <Box>
           <Image

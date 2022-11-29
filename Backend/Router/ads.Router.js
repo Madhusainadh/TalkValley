@@ -1,6 +1,6 @@
 const express = require("express");
 const ads = require("../Schema/ads.model.js");
-
+const company = require("../Schema/Company.model")
 const app = express.Router();
 app.post("/", async (req, res) => {
     console.log("post")
@@ -13,6 +13,14 @@ app.post("/", async (req, res) => {
 
     }
 })
+app.post("/company",async(req,res)=>{
+    try{
+        await company.create(req.body)
+        res.status(200).send("added")
+    }catch(err){
+        res.status(500).send(err.message)
+    }
+})
 app.get('/',async(req,res)=>{
     const search = req.query.search || "";
 
@@ -20,7 +28,6 @@ app.get('/',async(req,res)=>{
 //  res.send(data)
 try{
     let data = await ads.find({
-        // title: { $regex: search, $options : "i" },
        "$or":[
         {primaryText: { $regex: search, $options : "i" }},
         {headline: { $regex: search, $options : "i" }},
@@ -28,7 +35,9 @@ try{
         {CTA: { $regex: search, $options : "i" }}
        ]
       });
-      res.send(data)
+    //  let a = await ads.find({name: { $regex: search, $options : "i" }})
+    let c = await company.find({name: { $regex: search, $options : "i" }})
+      res.send([...data,...c])
 }catch(err){
     res.status(500).send(err.message)
 }
